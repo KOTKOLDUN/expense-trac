@@ -21,6 +21,8 @@ background:#f5f7fb;
 color:#222;
 }
 
+/* HEADER */
+
 header{
 height:70px;
 background:white;
@@ -37,6 +39,8 @@ left:40px;
 font-size:22px;
 font-weight:800;
 }
+
+/* NAV */
 
 nav{
 display:flex;
@@ -57,6 +61,8 @@ background:#4b6cff;
 color:white;
 }
 
+/* MAIN */
+
 .container{
 max-width:1100px;
 margin:auto;
@@ -74,6 +80,8 @@ display:block;
 h2{
 margin-bottom:20px;
 }
+
+/* FORM */
 
 .form{
 background:white;
@@ -102,6 +110,8 @@ border-radius:8px;
 cursor:pointer;
 font-size:15px;
 }
+
+/* TABLE */
 
 table{
 width:100%;
@@ -144,47 +154,15 @@ cursor:pointer;
 
 .stats{
 display:grid;
-grid-template-columns:1fr 1fr;
-grid-template-rows:auto auto;
+grid-template-columns: 1fr 2fr;
 gap:25px;
+align-items:start;
 }
 
-.chart-wrap{
-grid-column:1;
-grid-row:2;
-background:white;
-padding:30px;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.05);
-}
-
-.chart-wrap canvas{
-width:100% !important;
-height:350px !important;
-}
-
-.categories{
-grid-column:2;
-grid-row:2;
-
-background:white;
-padding:20px;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.05);
-
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.category-item{
-background:#f1f3f8;
-padding:10px;
-border-radius:8px;
-font-size:14px;
-}
+/* карточки */
 
 .card{
+width:100%;
 background:white;
 padding:30px;
 border-radius:14px;
@@ -203,6 +181,41 @@ font-weight:700;
 margin-top:8px;
 }
 
+/* диаграмма */
+
+.chart-wrap{
+background:white;
+padding:30px;
+border-radius:14px;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.chart-wrap canvas{
+width:100% !important;
+height:350px !important;
+}
+
+/* ЛЕГЕНДА */
+
+.legend{
+display:flex;
+flex-direction:column;
+gap:12px;
+margin-top:20px;
+}
+
+.legend-item{
+padding:12px 18px;
+border-radius:30px;
+font-size:16px;
+font-weight:600;
+color:white;
+width:200px;
+text-align:center;
+}
+
+/* TOOLS */
+
 .tools{
 margin-top:20px;
 display:flex;
@@ -216,6 +229,8 @@ border-radius:6px;
 background:#eee;
 cursor:pointer;
 }
+
+/* NOTIFY */
 
 .notify{
 position:fixed;
@@ -310,21 +325,25 @@ transform:translate(-50%,0);
 
 <div class="stats">
 
+<div>
+
 <div class="card">
 <div class="card-title">Всего расходов</div>
 <div id="total" class="card-value">0</div>
 </div>
 
-<div class="card">
+<div class="card" style="margin-top:20px;">
 <div class="card-title">Количество операций</div>
 <div id="count" class="card-value">0</div>
+</div>
+
+<div id="legend" class="legend"></div>
+
 </div>
 
 <div class="chart-wrap">
 <canvas id="chart"></canvas>
 </div>
-
-<div id="categories" class="categories"></div>
 
 </div>
 
@@ -356,7 +375,17 @@ transform:translate(-50%,0);
 <script>
 
 let expenses = JSON.parse(localStorage.getItem("coincompass")) || []
+
 let chart
+
+const colors = {
+"Еда":"#ff6384",
+"Транспорт":"#36a2eb",
+"Развлечения":"#ffcd56",
+"Жилье":"#4bc0c0",
+"Покупки":"#9966ff",
+"Прочее":"#ff9f40"
+}
 
 function save(){
 localStorage.setItem("coincompass",JSON.stringify(expenses))
@@ -479,13 +508,18 @@ cats[e.category]+=e.amount
 document.getElementById("total").innerText=total
 document.getElementById("count").innerText=expenses.length
 
-let catHTML=""
+let legendHTML=""
 
 for(let c in cats){
-catHTML+=`<div class="category-item">${c}: ${cats[c]}</div>`
+
+legendHTML+=`
+<div class="legend-item" style="background:${colors[c]}">
+${c}
+</div>
+`
 }
 
-document.getElementById("categories").innerHTML=catHTML
+document.getElementById("legend").innerHTML=legendHTML
 
 let ctx=document.getElementById("chart")
 
@@ -495,7 +529,10 @@ chart=new Chart(ctx,{
 type:"doughnut",
 data:{
 labels:Object.keys(cats),
-datasets:[{data:Object.values(cats)}]
+datasets:[{
+data:Object.values(cats),
+backgroundColor:Object.keys(cats).map(c=>colors[c])
+}]
 },
 options:{
 plugins:{legend:{display:false}}
