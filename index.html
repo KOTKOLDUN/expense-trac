@@ -208,16 +208,21 @@ cursor:pointer;
 
 .notify{
 position:fixed;
-top:20px;
-right:20px;
+bottom:20px;
+left:50%;
+transform:translate(-50%,20px);
 background:#4b6cff;
 color:white;
 padding:14px 22px;
 border-radius:10px;
 box-shadow:0 10px 25px rgba(0,0,0,0.15);
 opacity:0;
-transform:translateY(-20px);
 transition:0.4s;
+}
+
+.notify.show{
+opacity:1;
+transform:translate(-50%,0);
 }
 
 .notify.show{
