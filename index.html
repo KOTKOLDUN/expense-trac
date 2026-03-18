@@ -200,17 +200,17 @@ height:500px !important;
 .legend{
 display:flex;
 flex-direction:column;
-gap:12px;
+gap:14px;
 margin-top:20px;
 }
 
 .legend-item{
-padding:12px 18px;
-border-radius:30px;
-font-size:16px;
-font-weight:600;
+padding:18px 22px;
+border-radius:35px;
+font-size:18px;
+font-weight:700;
 color:white;
-width:200px;
+width:260px;
 text-align:center;
 }
 
@@ -514,7 +514,7 @@ for(let c in cats){
 
 legendHTML+=`
 <div class="legend-item" style="background:${colors[c]}">
-${c}
+${c}: ${cats[c]}₽
 </div>
 `
 }
