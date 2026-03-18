@@ -154,21 +154,27 @@ cursor:pointer;
 
 .stats{
 display:grid;
-grid-template-columns:1fr 1fr;
+grid-template-columns: 1.5fr 1.5fr;
 grid-template-rows:auto auto;
-gap:20px;
-max-width:900px;
+gap:25px;
+max-width:100%;
 }
+
+/* Всего расходов */
 
 .stats .card:nth-child(1){
 grid-column:1;
 grid-row:1;
 }
 
+/* Количество операций */
+
 .stats .card:nth-child(2){
 grid-column:2;
 grid-row:1;
 }
+
+/* Диаграмма */
 
 .chart-wrap{
 grid-column:1;
@@ -180,15 +186,19 @@ border-radius:14px;
 box-shadow:0 10px 25px rgba(0,0,0,0.05);
 }
 
+/* квадратная диаграмма */
+
 .chart-wrap canvas{
 width:100% !important;
 height:350px !important;
 }
 
+/* карточки */
+
 .card{
 width:100%;
 background:white;
-padding:25px;
+padding:30px;
 border-radius:14px;
 text-align:center;
 box-shadow:0 10px 25px rgba(0,0,0,0.05);
@@ -196,11 +206,11 @@ box-shadow:0 10px 25px rgba(0,0,0,0.05);
 
 .card-title{
 color:#777;
-font-size:13px;
+font-size:14px;
 }
 
 .card-value{
-font-size:26px;
+font-size:28px;
 font-weight:700;
 margin-top:8px;
 }
