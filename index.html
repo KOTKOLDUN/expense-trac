@@ -157,16 +157,33 @@ display:grid;
 grid-template-columns:1fr 1fr;
 grid-template-rows:auto auto;
 gap:20px;
-max-width:700px;
-margin-bottom:30px;
+max-width:900px;
+margin:0 auto 30px auto;
 }
 
 .stats .card:nth-child(1){
 grid-column:1;
+grid-row:1;
 }
 
 .stats .card:nth-child(2){
 grid-column:2;
+grid-row:1;
+}
+
+.chart-wrap{
+grid-column:1;
+grid-row:2;
+width:100%;
+background:white;
+padding:30px;
+border-radius:14px;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.chart-wrap canvas{
+width:100% !important;
+height:300px !important;
 }
 
 .card{
@@ -187,24 +204,6 @@ font-size:13px;
 font-size:26px;
 font-weight:700;
 margin-top:8px;
-}
-
-/* CHART */
-
-.chart-wrap{
-width:100%;
-max-width:500px;
-height:500px;
-background:white;
-padding:30px;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.05);
-grid-column:1;
-}
-
-.chart-wrap canvas{
-width:100% !important;
-height:100% !important;
 }
 
 /* TOOLS */
@@ -254,12 +253,10 @@ transform:translate(-50%,0);
 <div class="logo-title">CoinCompass</div>
 
 <nav>
-
 <button class="tab active" onclick="tab('add',this)">Добавить</button>
 <button class="tab" onclick="tab('history',this)">История</button>
 <button class="tab" onclick="tab('stats',this)">Статистика</button>
 <button class="tab" onclick="tab('months',this)">По месяцам</button>
-
 </nav>
 
 </header>
@@ -295,7 +292,6 @@ transform:translate(-50%,0);
 <h2>История расходов</h2>
 
 <table>
-
 <thead>
 <tr>
 <th>Дата</th>
@@ -305,17 +301,14 @@ transform:translate(-50%,0);
 <th></th>
 </tr>
 </thead>
-
 <tbody id="historyBody"></tbody>
-
 </table>
 
 <div class="tools">
-
 <button onclick="exportData()">Экспорт</button>
 <input type="file" onchange="importData(event)">
-
 </div>
+
 </div>
 
 <div id="stats" class="section">
@@ -376,16 +369,10 @@ localStorage.setItem("coincompass",JSON.stringify(expenses))
 }
 
 function notify(text){
-
 let n=document.getElementById("notify")
-
 n.innerText=text
 n.classList.add("show")
-
-setTimeout(()=>{
-n.classList.remove("show")
-},2000)
-
+setTimeout(()=>{n.classList.remove("show")},2000)
 }
 
 function tab(id,btn){
@@ -401,7 +388,6 @@ document.querySelectorAll(".tab")
 btn.classList.add("active")
 
 render()
-
 }
 
 function add(){
@@ -429,17 +415,12 @@ category.selectedIndex=0
 notify("Расход сохранён")
 
 render()
-
 }
 
 function del(id){
-
 expenses=expenses.filter(e=>e.id!==id)
-
 save()
-
 render()
-
 }
 
 function edit(id){
@@ -449,23 +430,16 @@ let e=expenses.find(x=>x.id===id)
 let amount=prompt("Новая сумма",e.amount)
 
 if(amount){
-
 e.amount=Number(amount)
-
 save()
-
 render()
-
 }
-
 }
 
 function render(){
-
 renderHistory()
 renderStats()
 renderMonths()
-
 }
 
 function renderHistory(){
@@ -477,26 +451,20 @@ expenses.forEach(e=>{
 let date=new Date(e.date).toLocaleDateString()
 
 html+=`
-
 <tr>
 <td>${date}</td>
 <td>${e.category}</td>
 <td>${e.amount}</td>
 <td>${e.desc}</td>
-
 <td>
 <button class="edit-btn" onclick="edit(${e.id})">Ред</button>
 <button class="delete-btn" onclick="del(${e.id})">Удал</button>
 </td>
-
 </tr>
-
 `
-
 })
 
 historyBody.innerHTML=html
-
 }
 
 function renderStats(){
@@ -531,7 +499,6 @@ options:{
 plugins:{legend:{position:"bottom"}}
 }
 })
-
 }
 
 function renderMonths(){
@@ -545,26 +512,20 @@ let m=new Date(e.date).toLocaleString("ru",{month:"long",year:"numeric"})
 if(!months[m]) months[m]=0
 
 months[m]+=e.amount
-
 })
 
 let html=""
 
 for(let m in months){
-
 html+=`
-
 <tr>
 <td>${m}</td>
 <td>${months[m]}</td>
 </tr>
-
 `
-
 }
 
 monthBody.innerHTML=html
-
 }
 
 function exportData(){
@@ -576,29 +537,21 @@ const blob=new Blob([data],{type:"application/json"})
 const a=document.createElement("a")
 
 a.href=URL.createObjectURL(blob)
-
 a.download="coincompass_backup.json"
-
 a.click()
-
 }
 
 function importData(event){
 
 const file=event.target.files[0]
-
 const reader=new FileReader()
 
 reader.onload=function(e){
-
 localStorage.setItem("coincompass",e.target.result)
-
 location.reload()
-
 }
 
 reader.readAsText(file)
-
 }
 
 render()
