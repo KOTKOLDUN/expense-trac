@@ -11,39 +11,38 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
 <style>
-*{margin:0; padding:0; box-sizing:border-box; font-family:Inter,system-ui;}
-body{background:#f5f7fb; color:#222;}
-header{height:70px; background:white; display:flex; align-items:center; justify-content:center; position:relative; box-shadow:0 3px 20px rgba(0,0,0,0.05);}
-.logo-title{position:absolute; left:40px; font-size:22px; font-weight:800; color:#222;}
-nav{display:flex; gap:25px;}
-nav button{border:none; background:none; font-size:15px; cursor:pointer; padding:8px 16px; border-radius:8px; transition:0.3s;}
-nav button.active{background:#4b6cff; color:white;}
-.container{max-width:1100px; margin:auto; padding:40px;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui;}
+body{background:#f5f7fb;color:#222;}
+header{height:70px;background:white;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 3px 20px rgba(0,0,0,0.05);}
+.logo-title{position:absolute;left:40px;font-size:22px;font-weight:800;color:#222;}
+nav{display:flex;gap:25px;}
+nav button{border:none;background:none;font-size:15px;cursor:pointer;padding:8px 16px;border-radius:8px;transition:0.3s;}
+nav button.active{background:#4b6cff;color:white;}
+.container{max-width:1100px;margin:auto;padding:40px;}
 .section{display:none;}
 .section.active{display:block;}
 h2{margin-bottom:20px;}
-.form{background:white; padding:25px; border-radius:14px; box-shadow:0 10px 25px rgba(0,0,0,0.05);}
-.form input, .form select{width:100%; padding:13px; margin-bottom:18px; border:1px solid #ddd; border-radius:8px; font-size:14px;}
-.main-btn{width:100%; padding:14px; border:none; background:#4b6cff; color:white; border-radius:8px; cursor:pointer; font-size:15px; font-weight:600;}
-.cancel-btn{width:100%; margin-top:10px; padding:10px; border:none; background:#eee; color:#666; border-radius:8px; cursor:pointer; display:none;}
-table{width:100%; border-collapse:collapse; background:white; border-radius:12px; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,0.04);}
-th,td{padding:14px; border-bottom:1px solid #eee;}
-th{background:#fafafa; text-align:left; color:#777; font-size:13px;}
-.edit-btn{background:#f39c12; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; margin-right:5px;}
-.delete-btn{background:#ff4b4b; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;}
-.notify{position:fixed; bottom:20px; left:50%; transform:translate(-50%,20px); background:#222; color:white; padding:14px 22px; border-radius:10px; opacity:0; transition:0.4s; pointer-events:none; z-index:1000;}
-.notify.show{opacity:1; transform:translate(-50%,0);}
+.form{background:white;padding:25px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,0.05);}
+.form input,.form select{width:100%;padding:13px;margin-bottom:18px;border:1px solid #ddd;border-radius:8px;font-size:14px;}
+.main-btn{width:100%;padding:14px;border:none;background:#4b6cff;color:white;border-radius:8px;cursor:pointer;font-size:15px;font-weight:600;}
+.cancel-btn{width:100%;margin-top:10px;padding:10px;border:none;background:#eee;color:#666;border-radius:8px;cursor:pointer;display:none;}
+table{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,0.04);}
+th,td{padding:14px;border-bottom:1px solid #eee;}
+th{background:#fafafa;text-align:left;color:#777;font-size:13px;}
+.edit-btn{background:#f39c12;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;margin-right:5px;}
+.delete-btn{background:#ff4b4b;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;}
+.notify{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:#222;color:white;padding:14px 22px;border-radius:10px;opacity:0;transition:0.4s;pointer-events:none;z-index:1000;}
+.notify.show{opacity:1;transform:translate(-50%,0);}
 #logoutBtn{position: fixed; bottom:20px; left:20px; padding:8px 12px; background:#ff4b4b; color:white; border:none; border-radius:6px; cursor:pointer; font-size:13px; display:none;}
-#loginSection{max-width:400px; margin:100px auto; display:none;}
-#loginSection input{width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ddd; font-size:14px;}
-#loginSection button{width:100%; padding:12px; border:none; border-radius:8px; background:#4b6cff; color:white; font-size:15px; cursor:pointer; margin-bottom:10px;}
-/* Статистика */
-.stats-cards{display:flex; gap:20px; margin-bottom:20px; flex-wrap:wrap;}
-.card{flex:1; min-width:120px; text-align:center; padding:20px; border-radius:14px; box-shadow:0 10px 25px rgba(0,0,0,0.05);}
-.charts-wrapper{display:flex; gap:20px; flex-wrap:wrap; margin-top:20px;}
-.charts-wrapper > div{flex:1; min-width:250px;}
-canvas{width:100%; height:300px !important;}
-select{margin-top:10px; padding:5px; width:100%; max-width:250px; border-radius:6px; border:1px solid #ccc;}
+#loginSection{max-width:400px;margin:100px auto;display:none;}
+#loginSection input{width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1px solid #ddd;font-size:14px;}
+#loginSection button{width:100%;padding:12px;border:none;border-radius:8px;background:#4b6cff;color:white;font-size:15px;cursor:pointer;margin-bottom:10px;}
+.stats-cards{display:flex;gap:20px;margin-bottom:20px;flex-wrap:wrap;}
+.card{flex:1;min-width:120px;text-align:center;padding:20px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,0.05);}
+.charts-wrapper{display:flex;gap:20px;flex-wrap:wrap;margin-top:20px;}
+.charts-wrapper > div{flex:1;min-width:250px;}
+canvas{width:100%;height:300px!important;}
+select{margin-top:10px;padding:5px;width:100%;max-width:250px;border-radius:6px;border:1px solid #ccc;}
 </style>
 </head>
 <body>
@@ -69,6 +68,8 @@ select{margin-top:10px; padding:5px; width:100%; max-width:250px; border-radius:
 <button id="logoutBtn" onclick="logout()">Выйти</button>
 
 <div class="container" id="mainApp">
+
+<!-- Добавить расход -->
 <div id="add" class="section active">
 <h2 id="formTitle">Добавить расход</h2>
 <div class="form">
@@ -87,6 +88,7 @@ select{margin-top:10px; padding:5px; width:100%; max-width:250px; border-radius:
 </div>
 </div>
 
+<!-- История -->
 <div id="history" class="section">
 <h2>История расходов</h2>
 <table>
@@ -96,12 +98,14 @@ select{margin-top:10px; padding:5px; width:100%; max-width:250px; border-radius:
 <div class="tools"><button onclick="exportData()">Скачать JSON</button></div>
 </div>
 
+<!-- Статистика -->
 <div id="stats" class="section">
 <h2>Статистика</h2>
 <div class="stats-cards">
 <div class="card"><div class="card-title">Всего расходов</div><div id="total" class="card-value">0</div></div>
 <div class="card"><div class="card-title">Операций</div><div id="count" class="card-value">0</div></div>
 </div>
+
 <div class="charts-wrapper">
 <div>
 <canvas id="pieChart"></canvas>
@@ -118,97 +122,68 @@ select{margin-top:10px; padding:5px; width:100%; max-width:250px; border-radius:
 </div>
 </div>
 
+<!-- По месяцам -->
 <div id="months" class="section">
 <h2>Расходы по месяцам</h2>
 <table><thead><tr><th>Месяц</th><th>Сумма</th></tr></thead><tbody id="monthBody"></tbody></table>
 </div>
-</div>
 
+</div>
 <div id="notify" class="notify">Готово</div>
 
 <script>
-const firebaseConfig = {
-apiKey:"AIzaSyDUKNKvSuoPYrCe7d6Xnc8rIdfq7ZMVf2k",
-authDomain:"coincompass-hack.firebaseapp.com",
-projectId:"coincompass-hack",
-storageBucket:"coincompass-hack.firebasestorage.app",
-messagingSenderId:"972639367478",
-appId:"1:972639367478:web:49ce98b93c2cabd3250397",
-databaseURL:"https://coincompass-hack-default-rtdb.europe-west1.firebasedatabase.app"
-};
+const firebaseConfig={apiKey:"AIzaSyDUKNKvSuoPYrCe7d6Xnc8rIdfq7ZMVf2k",authDomain:"coincompass-hack.firebaseapp.com",projectId:"coincompass-hack",storageBucket:"coincompass-hack.firebasestorage.app",messagingSenderId:"972639367478",appId:"1:972639367478:web:49ce98b93c2cabd3250397",databaseURL:"https://coincompass-hack-default-rtdb.europe-west1.firebasedatabase.app"};
 firebase.initializeApp(firebaseConfig);
-const db=firebase.database();
-const auth=firebase.auth();
-
-let expenses=[], chart=null, pieChart=null, barChart=null, editingId=null, currentUser=null;
+const db=firebase.database(), auth=firebase.auth();
+let expenses=[], pieChart=null, barChart=null, editingId=null, currentUser=null;
 
 function notify(text){let n=document.getElementById("notify"); n.innerText=text; n.classList.add("show"); setTimeout(()=>{n.classList.remove("show")},2000);}
-
 function tab(id,btn){document.querySelectorAll(".section").forEach(s=>s.classList.remove("active")); document.getElementById(id).classList.add("active"); document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active")); btn.classList.add("active"); render();}
-
 function showApp(user){currentUser=user; document.getElementById("loginSection").style.display="none"; document.getElementById("mainApp").style.display="block"; document.getElementById("logoutBtn").style.display="inline-block"; loadExpenses();}
-
-function login(){const email=document.getElementById("loginEmail").value; const pass=document.getElementById("loginPassword").value;
-auth.signInWithEmailAndPassword(email,pass).then(res=>showApp(res.user)).catch(err=>notify(err.message));}
-
-function register(){const email=document.getElementById("loginEmail").value; const pass=document.getElementById("loginPassword").value;
-auth.createUserWithEmailAndPassword(email,pass).then(res=>showApp(res.user)).catch(err=>notify(err.message));}
-
+function login(){const email=document.getElementById("loginEmail").value; const pass=document.getElementById("loginPassword").value; auth.signInWithEmailAndPassword(email,pass).then(res=>showApp(res.user)).catch(err=>notify(err.message));}
+function register(){const email=document.getElementById("loginEmail").value; const pass=document.getElementById("loginPassword").value; auth.createUserWithEmailAndPassword(email,pass).then(res=>showApp(res.user)).catch(err=>notify(err.message));}
 function logout(){auth.signOut().then(()=>{currentUser=null; document.getElementById("loginSection").style.display="block"; document.getElementById("mainApp").style.display="none"; document.getElementById("logoutBtn").style.display="none";});}
+function loadExpenses(){if(!currentUser)return; db.ref("users/"+currentUser.uid+"/expenses").on("value", snapshot=>{const data=snapshot.val(); expenses=data?Object.keys(data).map(k=>({...data[k],firebaseId:k})):[]; render();});}
 
-function loadExpenses(){if(!currentUser) return; db.ref("users/"+currentUser.uid+"/expenses").on("value",(snapshot)=>{const data=snapshot.val(); expenses=data?Object.keys(data).map(key=>({...data[key],firebaseId:key})):[]; render();});}
-
-function saveExpense(){if(!currentUser){notify("Необходимо войти");return;} let amount=document.getElementById("amount"); let category=document.getElementById("category"); let desc=document.getElementById("desc"); if(!amount.value) return;
+function saveExpense(){if(!currentUser){notify("Необходимо войти");return;} let amount=document.getElementById("amount"); let category=document.getElementById("category"); let desc=document.getElementById("desc"); if(!amount.value)return;
 const expenseData={amount:Number(amount.value),category:category.value,desc:desc.value||"-",date:editingId?expenses.find(e=>e.firebaseId===editingId).date:new Date().toISOString()};
-if(editingId){db.ref("users/"+currentUser.uid+"/expenses/"+editingId).update(expenseData); notify("Обновлено"); resetForm();} else {db.ref("users/"+currentUser.uid+"/expenses").push(expenseData); notify("Сохранено");}
-amount.value=""; desc.value="";}
+if(editingId){db.ref("users/"+currentUser.uid+"/expenses/"+editingId).update(expenseData); notify("Обновлено"); resetForm();}
+else{db.ref("users/"+currentUser.uid+"/expenses").push(expenseData); notify("Сохранено");} amount.value=""; desc.value="";}
 
-function editEntry(id){const item=expenses.find(e=>e.firebaseId===id); if(!item) return; editingId=id; document.getElementById("amount").value=item.amount; document.getElementById("category").value=item.category; document.getElementById("desc").value=item.desc;
-document.getElementById("formTitle").innerText="Редактировать расход"; document.getElementById("submitBtn").innerText="Обновить запись"; document.getElementById("cancelBtn").style.display="block";
-tab('add',document.querySelector('.tab[onclick*="add"]'));}
-
+function editEntry(id){const item=expenses.find(e=>e.firebaseId===id); if(!item)return; editingId=id; document.getElementById("amount").value=item.amount; document.getElementById("category").value=item.category; document.getElementById("desc").value=item.desc; document.getElementById("formTitle").innerText="Редактировать расход"; document.getElementById("submitBtn").innerText="Обновить запись"; document.getElementById("cancelBtn").style.display="block"; tab('add',document.querySelector('.tab[onclick*="add"]'));}
 function resetForm(){editingId=null; document.getElementById("amount").value=""; document.getElementById("desc").value=""; document.getElementById("formTitle").innerText="Добавить расход"; document.getElementById("submitBtn").innerText="Сохранить расход"; document.getElementById("cancelBtn").style.display="none";}
-
-function del(firebaseId){if(!currentUser) return; if(confirm("Удалить запись?")){db.ref("users/"+currentUser.uid+"/expenses/"+firebaseId).remove(); notify("Удалено");}}
-
+function del(firebaseId){if(!currentUser)return; if(confirm("Удалить запись?")) db.ref("users/"+currentUser.uid+"/expenses/"+firebaseId).remove(),notify("Удалено");}
 function render(){renderHistory(); renderStats(); renderMonths();}
 
 function renderHistory(){let html=""; expenses.slice().reverse().forEach(e=>{let date=new Date(e.date).toLocaleDateString(); html+=`<tr><td>${date}</td><td>${e.category}</td><td>${e.amount} ₽</td><td>${e.desc}</td><td><button class="edit-btn" onclick="editEntry('${e.firebaseId}')">Изменить</button><button class="delete-btn" onclick="del('${e.firebaseId}')">Удалить</button></td></tr>`}); document.getElementById("historyBody").innerHTML=html;}
 
 function renderStats(){
-let total=0; let cats={};
-expenses.forEach(e=>{total+=e.amount; cats[e.category]=(cats[e.category]||0)+e.amount;});
-document.getElementById("total").innerText=total+" ₽";
-document.getElementById("count").innerText=expenses.length;
+let total=0, cats={}; expenses.forEach(e=>{total+=e.amount; cats[e.category]=(cats[e.category]||0)+e.amount;});
+document.getElementById("total").innerText=total+" ₽"; document.getElementById("count").innerText=expenses.length;
 
-// Круговая диаграмма
-let ctxPie=document.getElementById("pieChart");
-const catFilter=document.getElementById("categoryFilter");
-catFilter.innerHTML="";
+// Круговая диаграмма с фильтром категорий
+let ctxPie=document.getElementById("pieChart"), catFilter=document.getElementById("categoryFilter"); catFilter.innerHTML="";
 Object.keys(cats).forEach(cat=>{let opt=document.createElement("option"); opt.value=cat; opt.textContent=cat; catFilter.appendChild(opt);});
-let selectedCats=Array.from(catFilter.selectedOptions).map(o=>o.value);
-selectedCats=selectedCats.length>0?Object.fromEntries(Object.entries(cats).filter(([k])=>selectedCats.includes(k))):cats;
+let selectedCats=Array.from(catFilter.selectedOptions).map(o=>o.value); selectedCats=selectedCats.length>0?Object.fromEntries(Object.entries(cats).filter(([k])=>selectedCats.includes(k))):cats;
 if(pieChart) pieChart.destroy();
-pieChart=new Chart(ctxPie,{type:"doughnut",data:{labels:Object.keys(selectedCats),datasets:[{data:Object.values(selectedCats),backgroundColor:['#4b6cff','#ff4b4b','#ffb84b','#2ecc71','#9b59b6','#34495e']}]}, options:{maintainAspectRatio:false, plugins:{legend:{position:"bottom"}}}});
+pieChart=new Chart(ctxPie,{type:"doughnut",data:{labels:Object.keys(selectedCats),datasets:[{data:Object.values(selectedCats),backgroundColor:['#4b6cff','#ff4b4b','#ffb84b','#2ecc71','#9b59b6','#34495e']}]},options:{maintainAspectRatio:false,plugins:{legend:{position:"bottom"}}}});
 catFilter.onchange=renderStats;
 
-// Гистограмма
-const period=document.getElementById("periodFilter").value;
-let labels=[], values=[];
+// Гистограмма с периодом
+let period=document.getElementById("periodFilter").value, labels=[], values=[];
 const now=new Date(); const expCopy=expenses.slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
 if(period==="day"){const today=now.toISOString().split("T")[0]; const daily=expCopy.filter(e=>e.date.startsWith(today)); labels=daily.map((_,i)=>`#${i+1}`); values=daily.map(e=>e.amount);}
-else if(period==="week"){const weekAgo=new Date(); weekAgo.setDate(now.getDate()-6); const dailyTotals={}; for(let i=0;i<7;i++){const d=new Date(); d.setDate(weekAgo.getDate()+i); const key=d.toISOString().split("T")[0]; dailyTotals[key]=0;} expCopy.forEach(e=>{const key=e.date.split("T")[0]; if(dailyTotals[key]!==undefined) dailyTotals[key]+=e.amount;}); labels=Object.keys(dailyTotals); values=Object.values(dailyTotals);}
-else if(period==="month"){const monthTotals={}; expCopy.forEach(e=>{const d=new Date(e.date); const key=`${d.getDate()}.${d.getMonth()+1}`; monthTotals[key]=(monthTotals[key]||0)+e.amount;}); labels=Object.keys(monthTotals); values=Object.values(monthTotals);}
-
-let ctxBar=document.getElementById("barChart"); if(barChart) barChart.destroy(); barChart=new Chart(ctxBar,{type:"bar", data:{labels:labels, datasets:[{label:"Расходы",data:values,backgroundColor:"#4b6cff"}]}, options:{maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}}}});
+else if(period==="week"){const weekAgo=new Date(); weekAgo.setDate(now.getDate()-6); const dailyTotals={}; for(let i=0;i<7;i++){const d=new Date(); d.setDate(weekAgo.getDate()+i); dailyTotals[d.toISOString().split("T")[0]]=0;} expCopy.forEach(e=>{let key=e.date.split("T")[0]; if(dailyTotals[key]!==undefined) dailyTotals[key]+=e.amount;}); labels=Object.keys(dailyTotals); values=Object.values(dailyTotals);}
+else if(period==="month"){const monthTotals={}; expCopy.forEach(e=>{let d=new Date(e.date); let key=`${d.getDate()}.${d.getMonth()+1}`; monthTotals[key]=(monthTotals[key]||0)+e.amount;}); labels=Object.keys(monthTotals); values=Object.values(monthTotals);}
+const ctxBar=document.getElementById("barChart"); if(barChart) barChart.destroy(); barChart=new Chart(ctxBar,{type:"bar",data:{labels, datasets:[{label:"Расходы",data:values,backgroundColor:"#4b6cff"}]}, options:{maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}}}});
 document.getElementById("periodFilter").onchange=renderStats;
 }
 
 function renderMonths(){let months={}; expenses.forEach(e=>{let m=new Date(e.date).toLocaleString("ru",{month:"long",year:"numeric"}); months[m]=(months[m]||0)+e.amount;}); let html=""; for(let m in months){html+=`<tr><td>${m}</td><td>${months[m]} ₽</td></tr>`;} document.getElementById("monthBody").innerHTML=html;}
 
-function exportData(){if(!currentUser) return; const data=JSON.stringify(expenses); const blob=new Blob([data],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="coincompass_backup.json"; a.click();}
+function exportData(){if(!currentUser)return; const data=JSON.stringify(expenses); const blob=new Blob([data],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="coincompass_backup.json"; a.click();}
 
-auth.onAuthStateChanged(user=>{if(user) showApp(user); else {document.getElementById("loginSection").style.display="block"; document.getElementById("mainApp").style.display="none"; document.getElementById("logoutBtn").style.display="none";}});
+auth.onAuthStateChanged(user=>{if(user) showApp(user); else{document.getElementById("loginSection").style.display="block"; document.getElementById("mainApp").style.display="none"; document.getElementById("logoutBtn").style.display="none";}});
 </script>
 </body>
 </html>
